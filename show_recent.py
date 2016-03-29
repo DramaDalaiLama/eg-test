@@ -34,4 +34,4 @@ for line in data:
 
 for entry in last_messages:
     if entry['Response_Code'] == "500":
-        print entry['Sender'] + " " + "\"" + entry['Request'] + "\""
+        print entry['Sender'] + " "  + entry['Request']
