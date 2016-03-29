@@ -12,26 +12,15 @@ with open (filename, "r") as logfile: # TODO apply per-block based file reading 
 
 data.reverse()
 
-last_messages = []
 regex =  re.compile('(?P<Sender>[\w\..]+) - - (?P<Time>\[(.*?)\]) (?P<Request>\"(.*?)\") (?P<Response_Code>\w+) (?P<Response_Size>\w+)')
-# print data[0]
 for line in data:
-    # print line
     try:
         entry =  re.match(regex, line).groupdict()
         time_format_re = '[\w\/]+[\w:]+'
-        # print re.search(time_format_re,entry['Time']).group()
         entry_time =  datetime.datetime.strptime(re.search(time_format_re,entry['Time']).group(), '%d/%b/%Y:%H:%M:%S') # Convert string with entry time to datetime object
-        if (time_now - entry_time).total_seconds() < 10*60*60: # Check if delta is less than 10 minutes or 10*60*60 seconds
-            # print line
-            last_messages.append(entry)
+        if (time_now - entry_time).total_seconds() < 10*60*60 and entry['Response_Code'] == "500": # Check if delta is less than 10 minutes or 10*60*60 seconds
+            print entry['Sender'] + " "  + entry['Request']
         else:
             break
     except:
         pass
-
-# print last_messages
-
-for entry in last_messages:
-    if entry['Response_Code'] == "500":
-        print entry['Sender'] + " "  + entry['Request']
