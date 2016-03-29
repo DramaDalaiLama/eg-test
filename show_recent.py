@@ -24,10 +24,14 @@ for line in data:
         entry_time =  datetime.datetime.strptime(re.search(time_format_re,entry['Time']).group(), '%d/%b/%Y:%H:%M:%S') # Convert string with entry time to datetime object
         if (time_now - entry_time).total_seconds() < 10*60*60: # Check if delta is less than 10 minutes or 10*60*60 seconds
             # print line
-            last_messages.append(line)
+            last_messages.append(entry)
         else:
             break
     except:
         pass
 
-print last_messages
+# print last_messages
+
+for entry in last_messages:
+    if entry['Response_Code'] == "500":
+        print entry['Sender'] + " " + "\"" + entry['Request'] + "\""
