@@ -15,7 +15,11 @@ def make_tar(path):
     tar = tarfile.open(path+"/"+tar_name+".tar.gz", "w:gz")
     for hour in xrange(18,22):
         file_name = tar_name+"_"+str(hour)+".log"
-        tar.add(path+"/"+file_name)
+        try:
+            tar.add(path+"/"+file_name)
+        except OSError:
+            print path+"/"+file_name + " doesn't exist"
+            pass
     tar.close()
 
     return tar_path
