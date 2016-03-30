@@ -1,6 +1,6 @@
 # eg-test
 
-pip install paramiko PyYAML
+pip install paramiko PyYAML schedule
 
 
 Create config.yml in the same directory with upload.py

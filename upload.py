@@ -9,6 +9,11 @@ import yaml
 with open('config.yml', 'r') as f:
         conf = yaml.load(f)
 
+def write_log(message):
+    logfile = open("schedule.log", "w")
+    logfile.write(datetime.datetime.now().__format__('%d/%b/%Y:%H:%M:%S')+": "+message)
+    logfile.close()
+
 # Archive logs before uploading them to remote server
 def make_tar(path):
     tar_name = "1995_07_28"
@@ -21,7 +26,8 @@ def make_tar(path):
         try:
             tar.add(path+"/"+file_name)
         except OSError:
-            print path+"/"+file_name + " doesn't exist"
+            # print path+"/"+file_name + " doesn't exist"
+            write_log(path+"/"+file_name + " doesn't exist")
             pass
     tar.close()
 
@@ -38,10 +44,14 @@ def upload(user=conf['ssh_user'],password=conf['ssh_password'],private_key=None,
     transport.close()
 
 def main():
-    print "Creating archive..."
+    # print "Creating archive..."
+    write_log("Creating archive...")
     tar = make_tar(conf['local_path'])
-    print "\nUploading tar archive to remote host..."
+    # print "\nUploading tar archive to remote host..."
+    write_log("Uploading archive to remote host...")
     upload(local_path=tar['tar_path'], remote_path=conf['remote_path']+"/"+tar['tar_name'])
+    # print "Upload complete\n"
+    write_log("Upload complete")
 
 if __name__ == '__main__':
     main()
