@@ -10,9 +10,9 @@ with open('config.yml', 'r') as f:
         conf = yaml.load(f)
 
 def write_log(message):
-    logfile = open("schedule.log", "w")
-    logfile.write(datetime.datetime.now().__format__('%d/%b/%Y:%H:%M:%S')+": "+message)
-    logfile.close()
+    logfile = open("schedule.log", "a")
+    logfile.write(datetime.datetime.now().__format__('%d/%b/%Y:%H:%M:%S')+": "+message+"\n")
+    # logfile.close()
 
 # Archive logs before uploading them to remote server
 def make_tar(path):
