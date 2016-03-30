@@ -1,0 +1,12 @@
+- hosts: all
+  gather_facts: true
+  user: "vagrant"
+  sudo: true
+  max_fail_percentage: 0
+
+  roles:
+    - tomcat
+    - sample_app
+
+  vars_files:
+    - config.yml

@@ -1,0 +1,16 @@
+---
+
+- name: Copy war file to remote webserver
+  copy: src=sample.war dest=/var/lib/tomcat7/webapps/sample.war owner=root group=root
+
+- name: Restart Tomcat
+  service: name=tomcat7 state=restarted
+
+- name: Check if app is running
+  uri: url=http://localhost:8080/sample/hello
+  register: response
+
+- debug: msg={{ response }}
+
+- action: fail
+  when: response['status'] != 200

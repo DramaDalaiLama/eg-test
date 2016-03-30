@@ -12,3 +12,10 @@ ssh_port: "22"
 local_path: "."
 remote_path: "/home/user"
 ```
+
+Write down remote server ip as "testserver" in `/etc/hosts` for ansible usage
+
+Download sample app from here
+```
+https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war
+```
