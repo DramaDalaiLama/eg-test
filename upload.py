@@ -38,9 +38,9 @@ def upload(user=conf['ssh_user'],password=conf['ssh_password'],private_key=None,
     transport.close()
 
 def main():
+    print "Creating archive..."
     tar = make_tar(conf['local_path'])
-    # print tar['tar_path']
-    # print conf['remote_path']+"/"+tar['tar_name']
+    print "\nUploading tar archive to remote host..."
     upload(local_path=tar['tar_path'], remote_path=conf['remote_path']+"/"+tar['tar_name'])
 
 if __name__ == '__main__':
