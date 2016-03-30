@@ -1,3 +1,3 @@
 # eg-test
 
-pip install paramiko
+pip install paramiko PyYAML
