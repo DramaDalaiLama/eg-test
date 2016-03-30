@@ -1,6 +1,6 @@
 # eg-test
 
-pip install paramiko PyYAML schedule
+pip install paramiko PyYAML schedule ansible
 
 
 Create config.yml in the same directory with upload.py
